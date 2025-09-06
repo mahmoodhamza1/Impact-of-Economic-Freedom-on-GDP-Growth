@@ -1,0 +1,245 @@
+---
+title: "**Impact of Economic Freedom on GDP Growth**"
+author: "Hamza Mahmood - 0796503"
+output: pdf_document
+fontsize: 12pt
+bibliography: My Collection.bib
+csl: apa.csl
+---
+
+## Background
+
+The study by [@Gwartney2003], delves into how economic freedom influences countries' income levels and economic growth, stressing the significance of the quality of institutions. By employing the Economic Freedom of the World index for analysis, the authors reveal a clear trend: nations with greater economic freedom usually experience higher incomes and more robust growth rates. This finding underscores the critical roles that secure property rights and the reduction of trade barriers play in promoting economic freedom, which in turn drives economic prosperity. This research provides a solid foundation for understanding the dynamic relationship between economic freedom and economic outcomes, offering valuable insights for further investigation into the correlation between economic freedom and GDP growth rate. Furthermore, to understand which components of economic freedom most significantly contribute to growth. [@Rode2012] used an innovative approach involving cluster analysis to reorganize the components of the Economic Freedom of the World (EFW) Index to alleviate multicollinearity issues and discern more distinct policy packages that influence growth. The findings suggested that certain policy combinations are more conducive to long-term economic growth than others, providing a nuanced understanding of how different aspects of economic freedom interact to shape economic outcomes.
+
+An empirical study examined the impact of various factors like economic freedom, political freedom, investment/GDP ratios, human capital, and dependency ratios on the growth of per capita real GDP across different countries and time periods. [@JamesD.Gwartney2017] used regression models, the analysis delved into the relationship between economic freedom and economic growth and compared the influences of economic and political freedom on growth. They identified a strong and robust relationship between increases in economic freedom, as measured by the Economic Freedom Network (EFN) index, and economic growth. 
+
+[@Barnatchez2017] examined the relationship between economic freedom and the vibrancy of economic activity across various U.S. states over an extended period. The findings indicate that states characterized by higher levels of economic freedom tend to showcase more robust job creation, a higher rate of new business establishments, and an overall enhanced level of economic dynamism. The study particularly highlights the significance of labor market flexibility and the scale of government intervention as crucial factors influencing these outcomes. It suggests that policy measures aimed at enhancing economic freedom might lead to increased economic vitality, providing valuable insights for investigation into the connection between economic freedom and GDP growth rates.
+
+Existing research was critically evaluated on how economic freedom influences economic growth, using meta-analysis by [@Doucouliagos2006]. They find a consistent positive link between economic freedom and growth, along with an indirect beneficial effect through the enhancement of physical capital. The study, however, points out the prevalent issue of specification bias, particularly in terms of accounting for physical capital, and notes that panel data analyses tend to yield lower estimates of economic freedom's impact on growth. The authors conclude that the methodology and data type significantly affect the estimated relationship, indicating the complexity of accurately measuring economic freedom's effect on economic growth.
+
+The causality between economic freedom and economic growth was examined using the Granger-causality tests on annual data. The research found that overall economic freedom, as well as several of its components, can precede economic growth. However, the relationship is not uniform across all components of economic freedom, and the study suggests that some aspects of economic freedom may be more critical in driving growth than others. This nuanced understanding of the link between economic freedom and growth provides a valuable context for our analysis, emphasizing the importance of examining specific components of economic freedom in relation to GDP growth rates,[@Heckelman2000].
+
+The exploration of economic freedom's impact on growth, particularly the work by [@Gwartney2003] and the nuanced findings of [@Rode2012], who addressed multicollinearity in the Economic Freedom of the World (EFW) index. Moreover, recognizing the complexity of isolating individual economic freedom components' effects, as highlighted by [@Doucouliagos2006], I aim to dissect the specific roles of investment, labor, and trade freedom in influencing GDP growth. This approach seeks to refine our understanding of economic freedom's multifaceted impact on economic growth, contributing to the broader discourse on economic policy and growth.
+
+## Data Description
+
+The dataset gathered belongs to the Heritage Foundation, offers a comprehensive overview of the Economic Freedom Index for various countries, as evaluated in 2019. This index is a pivotal measure that assesses a country's economic environment and its ability to support individual economic freedom. Compiled with meticulous attention to detail, the dataset encapsulates a wide array of indicators across 34 distinct fields, each contributing to the overarching narrative of economic freedom.
+
+At the core of the dataset are identifiers such as CountryID and Country Name, which ensure each entry is distinct and accurately represented. These are complemented by the WEBNAME field, which provides a web-friendly version of each country's name, and the Region field, delineating the geographical classification to which each country belongs.
+
+Critical to the dataset's utility are the World Rank and Region Rank fields, offering a global and regional perspective on each country's standing in terms of economic freedom. The 2019 Score field encapsulates the overall economic freedom score, distilled from numerous underlying metrics.
+
+Key among these metrics are Property Rights, Judical Effectiveness, and Government Integrity, each scored to reflect the respective country's legislative and governance framework's efficacy and fairness. These scores are fundamental in understanding the institutional pillars that underpin economic freedom.
+
+The dataset further delves into economic parameters like Tax Burden, Government Spending, and Labor freedom, providing a nuanced view of the fiscal policies and their alignment with economic liberty principles. Trade freedom, investment freedom, and financial freedom are quantitatively assessed in dedicated fields, highlighting the openness and efficiency of market operations within each country.
+
+Demographic and macroeconomic data, such as Population (Millions), GDP (Billions, PPP), GDP Growth Rate, and GDP per Capita (PPP), furnish a contextual backdrop, enabling a holistic analysis of economic freedom vis-à-vis socio-economic conditions.
+
+Inflation rates, unemployment figures, and public debt metrics further enrich the dataset, offering insights into the economic challenges and opportunities faced by each nation. The FDI Inflow (Millions) field sheds light on the international investment landscape, indicative of the global business community's confidence in a country's economic environment.
+
+In essence, this dataset allows for a comprehensive analysis, that should help us determine the kind of impact economic freedom has on GDP growth rate. 
+
+### Summary of Economic Freedom Index Data
+
+| Country Name | World Rank | 2019 Score | Investment Freedom | Trade Freedom | Labor Freedom | GDP Growth (%) |
+| ------------ | ---------- | ---------- | ------------------ | ------------- | ------------- | -------------- |
+| Albania      | 52         | 66.5       | 70                 | 87.8          | 52.7          | 3.9            |
+| Algeria      | 171        | 46.2       | 30                 | 67.4          | 49.9          | 2              |
+| Angola       | 156        | 50.6       | 30                 | 61.2          | 58.8          | 0.7            |
+| Argentina    | 148        | 52.2       | 55                 | 70            | 46.9          | 2.9            |
+| Armenia      | 47         | 67.7       | 75                 | 80.8          | 71.4          | 7.5            |
+| Australia    | 5          | 80.9       | 80                 | 87.6          | 84.1          | 2.3            |
+| Austria      | 31         | 72         | 90                 | 86            | 68.7          | 2.9            |
+| Bahamas      | 76         | 62.9       | 50                 | 47.8          | 67.5          | 1.3            |
+| Bahrain      | 54         | 66.4       | 75                 | 83.8          | 71.1          | 3.2            |
+| Bangladesh   | 121        | 55.6       | 45                 | 63.6          | 68.2          | 7.1            |
+
+## Method
+
+Based on the research by [@Gwartney2003], nations with greater economic freedom usually experience more robust economic growth rates. We will first start off by assessing if there is any correlation between economic freedom scores for 2019 and the GDP growth rate.
+
+```{r code_only1, echo=FALSE}
+data <- read.csv("economic_freedom_index2019_data.csv")
+```
+
+Before conducting the Spearman correlation to assess the relationship between economic freedom scores and GDP growth rates, it was necessary to check for two key assumptions: normality of the data and the linearity of the relationship.
+
+```{r code_only2, echo=TRUE, results='hide'}
+# Test for normality on Economic Freedom Score
+shapiro_test_score <- shapiro.test(data$X2019.Score)
+# Test for normality on GDP Growth Rate
+shapiro_test_growth <- shapiro.test(data$GDP.Growth.Rate....)
+# Print the results
+print(shapiro_test_score)
+print(shapiro_test_growth)
+```
+
+```{r  code_only3, echo=TRUE, results='hide', fig.show='hide'}
+#ggplot object with data and aesthetic mappings
+library(ggplot2)
+p <- ggplot(data, aes(x = X2019.Score,  
+                      y = GDP.Growth.Rate....)) + 
+#violin plot for the distribution of GDP Growth
+  geom_violin(trim = FALSE, fill = "skyblue", 
+              color = "darkblue") + 
+  theme_minimal() #minimal theme for a clean look
+#overlay scatterplot for individual data points with jitter, avoid overlap.
+p <- p + geom_jitter(aes(color = X2019.Score), 
+                     width = 0.15, 
+                     size = 2,
+                     alpha = 0.6) +
+#Remove legend for scatterplot points
+  theme(legend.position = "none")
+#Adding labels and title
+p <- p + labs(title = "GDP Growth Rate by 2019 Score",
+              x = "Economic Freedom Score (2019)",
+              y = "GDP Growth Rate") +
+# Center the title
+  theme(plot.title = element_text(hjust = 0.5)) 
+# Display the plot
+print(p)
+```
+The Shapiro-Wilk test was used to evaluate normality, a crucial step since the Pearson correlation — often used for such analyses — assumes that the data for both variables follow a normal distribution. The test results led to the rejection of normality. Furthermore, a plot provided a visual means to assess linearity, revealing a lack of a linear pattern between the variables. This visual inspection is essential, as noted by [@Doucouliagos2006], who emphasized the importance of understanding the data's underlying distribution and relationship characteristics when exploring economic indices and their associations with growth measures. The combined use of these methods aligns with academic best practices, ensuring that the subsequent analysis is appropriate for the data characteristics.
+
+In exploring the relationship between economic freedom scores and GDP growth rates, the Spearman correlation was employed due to the non-normal distribution of the data and the absence of a linear relationship. This non-parametric measure is particularly apt as it assesses monotonic relationships between variables, which is appropriate when the assumptions required for Pearson's correlation are not met. 
+
+```{r code_only4, echo=TRUE, results='hide', warning=FALSE}
+# Converting columns to numeric data
+data$X2019.Score <- as.numeric(as.character(data$X2019.Score))
+data$GDP.Growth.Rate.... <- as.numeric(as.character(
+  data$GDP.Growth.Rate....))
+
+# Calculating the correlation using cor.test() function
+correlation_result <- cor.test(data$X2019.Score, 
+                          data$GDP.Growth.Rate...., 
+                          method = "spearman")
+#spearman correlation for 2019 freedom score and gdp growth
+# Output the result
+print(correlation_result)
+```
+The results indicated a negligible monotonic correlation, suggesting that other factors might interplay significantly in GDP growth rates, or that the relationship is not well-captured by a simple bivariate correlation. 
+
+These findings are in line with the complex relationships explored in academic literature, such as the works of [@Heckelman2000] and [@Rode2012], where economic freedom's influence on economic outcomes can be nuanced and multifaceted, often contingent on various macroeconomic and institutional conditions. We will conduct a multiple regression analysis by expanding the set of independent variables to include investment freedom, labor freedom, and trade freedom, the analysis aims to capture the multifaceted nature of economic freedom and its diverse impacts on economic growth, thus also building on the foundational work of [@JamesD.Gwartney2017]. 
+
+```{r code_only5, echo=TRUE, results='hide',fig.show='hide',warning=FALSE, message=FALSE}
+library(lmtest)
+library(car)
+#Calculating the multiple regression using the lm() function
+multi_reg <- lm(GDP.Growth.Rate.... ~ X2019.Score +
+                  Investment.Freedom + Labor.Freedom + Trade.Freedom,
+                data = data)
+# Using summary() function to get a summary of the model output
+summary(multi_reg)
+vif(multi_reg)#Vif() function to check for multicollinearity
+```
+A plot is created to compare the actual GDP Growth Rate values to those predicted by the regression model:
+
+```{r code only 6,  echo=TRUE, results='hide', fig.show='hide'}
+library(ggplot2)
+predictions <- predict(multi_reg)#Generate predictions from regression model
+actuals <- multi_reg$model[[1]]#Replace with actual dependent variable name
+ggplot(data.frame(Actual = actuals, Predicted = predictions), 
+       aes(x = Actual, y = Predicted)) + #Plot Predicted vs Actual Values
+  geom_point(col="darkblue") + #Plot points in dark blue
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", 
+              color = "red") + #Add red dashed line of best fit
+  theme_minimal() + #minimal theme for a clean look
+  xlab("Actual Values") + ylab("Predicted Values") + #add labels
+  ggtitle("Predicted vs Actual Values") #add title
+```
+
+## Results
+
+We conducted the Shapiro-Wilk normality tests on two key datasets: 2019 economic freedom Score and the GDP growth rate. The results are as follows:
+```{r output1, echo=FALSE, comment=NA}
+# Test for normality on Economic Freedom Score
+shapiro_test_score <- shapiro.test(data$X2019.Score)
+# Test for normality on GDP Growth Rate
+shapiro_test_growth <- shapiro.test(data$GDP.Growth.Rate....)
+# Print the results
+print(shapiro_test_score)
+print(shapiro_test_growth)
+```
+Both tests suggest that the datasets being analyzed does not follow a normal distribution, as indicated by the very low p-values in both tests.
+
+The violin plot with a scatterplot overlay, helps visualize the relationship between the 2019 Economic Freedom Score and GDP Growth.
+```{r output2, echo=FALSE,fig.width=4, fig.height=3, fig.align='center',comment=NA}
+p <- ggplot(data, aes(x = X2019.Score, y = GDP.Growth.Rate....)) +
+  geom_violin(trim = FALSE, fill = "skyblue", color = "darkblue") +
+  theme_minimal()
+p <- p + geom_jitter(aes(color = X2019.Score), width = 0.15, 
+                     size = 2,
+                     alpha = 0.6) +
+  theme(legend.position = "none")
+p <- p + labs(title = "GDP Growth Rate by 2019 Score",
+              x = "Economic Freedom Score (2019)",
+              y = "GDP Growth Rate") +
+  theme(plot.title = element_text(hjust = 0.5)) 
+# Display the plot
+print(p)
+```
+The plot presents the distribution and individual data points of GDP Growth Rate across varying levels of Economic Freedom Scores from 2019. The width of the violin indicates the density of data points, with wider sections signifying a higher concentration of countries sharing similar growth rates. Notably, the plot exhibits a multimodal distribution, especially around the median Economic Freedom Score, suggesting several peaks where GDP Growth Rates are most frequent. Outliers are visible as well, with some countries showing exceptionally high or low growth rates. The spread of individual data points does not suggest a clear linear relationship between Economic Freedom Scores and GDP Growth Rates, implying a more complex association that likely requires additional analysis to fully understand the underlying dynamics between these variables. 
+
+Spearman correlation used to further explore the relationship between economic freedom and GDP growth revealed the following:
+```{r output3, echo=FALSE, warning=FALSE, comment=NA}
+# Converting columns to numeric data
+data$X2019.Score <- as.numeric(as.character(data$X2019.Score))
+data$GDP.Growth.Rate.... <- as.numeric(as.character(
+  data$GDP.Growth.Rate....))
+
+# Calculating the correlation using cor.test() function
+correlation_result <- cor.test(data$X2019.Score, 
+                          data$GDP.Growth.Rate...., 
+                          method = "spearman")
+
+# Output the result
+print(correlation_result)
+```
+Based on the Spearman's rank correlation test, there appears to be no statistically significant monotonic relationship between the 2019 Economic Freedom Score and the GDP Growth Rate, as indicated by the correlation coefficient of 0.02267 and a p-value of 0.7626. 
+
+The findings of correlation test resonates with the intricate interplay described in research, by the [@Heckelman2000] and [@Rode2012], which explains that the impact of economic freedom on economic performance is intricate and layered. The dynamics of the relationship depend on a broad spectrum of macroeconomic factors. Based on the work of [@JamesD.Gwartney2017], we will use a multiple regression analysis accounting for investment freedom, labor freedom, and trade freedom while keeping economic freedom as our primary independent variable. 
+```{r output5, echo=FALSE, comment=NA, warning=FALSE}
+library(lmtest)
+library(car)
+# Calculating the multiple regression using the lm() function
+multi_reg <- lm(GDP.Growth.Rate.... ~ X2019.Score +
+                  Investment.Freedom + Labor.Freedom + Trade.Freedom,
+                data = data)
+# Using summary() function to get a summary of the model output
+summary(multi_reg)
+```
+The multiple regression analysis indicates a statistically significant positive relationship between economic freedom (2019 Score) and GDP Growth Rate, with each unit increase in the economic freedom score expected to increase GDP Growth Rate by approximately 0.116 points. The effects of Investment Freedom, Labor Freedom, and Trade Freedom on GDP Growth Rate are negative, though not all are statistically significant, suggesting a more complex interaction that might not directly contribute to GDP growth as hypothesized. The model explains about 5.96% of the variability in GDP Growth Rate, as indicated by the R-squared value, suggesting that other unaccounted factors may also play a significant role in determining GDP Growth Rate. The overall model is statistically significant, as evidenced by the F-statistic ($p-value = 0.02865$), indicating that the variables collectively have an impact on GDP Growth Rate, with the economic freedom score being the notable contributor. 
+
+Based on the research by [@Rode2012], we also check for multicollinearity and residuals to enhance our understanding of the factors influencing GDP growth:
+```{r output6, echo=FALSE, comment=NA}
+vif(multi_reg) #variance inflation factor (VIF) to check for multicollinearity
+```
+The VIF values for 2019 freedom Score, investment freedom, labor freedom, and trade freedom are 4.759781, 2.506707, 1.630440, and 2.324841, respectively. Generally, a VIF value above 5 or 10 indicates high multicollinearity that may be a cause for concern, suggesting that the predictor variables are correlated with each other to some extent that could affect the stability of the coefficient estimates. In this case, all VIF values are below 5, which suggests that multicollinearity is likely not a major concern for this model, and the regression coefficients can be considered relatively stable.
+
+```{r output7, echo=FALSE,fig.width=5, fig.height=4, fig.align='center',comment=NA}
+library(ggplot2)
+predictions <- predict(multi_reg)
+actuals <- multi_reg$model[[1]] # Replace with the actual dependent variable name
+ggplot(data.frame(Actual = actuals, Predicted = predictions), aes(x = Actual, y = Predicted)) +
+  geom_point(col="darkblue") +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
+  theme_minimal() +
+  xlab("Actual Values") + ylab("Predicted Values") +
+  ggtitle("Predicted vs Actual Values")
+```
+The plot compares the actual GDP Growth Rate values to those predicted by the regression model. It suggests that while the model has some predictive power—as indicated by the overall statistical significance from the F-statistic—it may not be capturing all the nuances of the data. The wide dispersion of points and the presence of outliers, particularly where actual values are negative and the predictions are consistently positive, point to the fact that the model's predictive accuracy is limited, despite the statistical significance of the variables as a group.
+
+## Conclusion
+
+Our multiple regression analysis aimed to explore the relationship between economic freedom and GDP growth rate, with particular emphasis on controlling for investment freedom, labor freedom, and trade freedom. The analysis revealed that the overall model was statistically significant, suggesting that the collective variables included in the model have a meaningful impact on GDP growth rates. This is consistent with the findings presented by [@Rode2012], who indicated that specific components of economic freedom are significant predictors of economic growth, emphasizing the importance of identifying which aspects of economic freedom contribute most to the growth.
+
+However, the plot comparing actual GDP Growth Rate values to the predicted values from the regression model indicated a wide dispersion of points, highlighting that the model, despite its statistical significance, might not be capturing all the complexities of the underlying economic dynamics. This discrepancy between the statistical significance of the model and its predictive accuracy suggests that while the included variables collectively explain a portion of the variability in GDP growth rates, there might be other factors or nonlinear relationships not captured by the model.
+
+This notion aligns with [@Doucouliagos2006] meta-analysis, which affirmed the positive relationship between economic freedom and economic growth but also hinted at the complexity of disentangling the individual effects of various components of economic freedom. This underscores the challenge of capturing the nuanced ways in which different aspects of economic freedom interact and influence economic growth. This is a critical consideration that echoes the concerns raised by [@Gwartney2003], who discussed the importance of considering institutional quality and economic freedom in understanding economic growth. They argued that while economic freedom is a crucial determinant of economic prosperity, its effects are mediated by broader socio-political context.
+
+In conclusion, the multiple regression analysis provides valuable insights into the relationship between economic freedom and GDP growth, while controlling for investment freedom, trade freedom and labor freedom, highlighting the statistical significance of the model as a whole. This analysis, in conjunction with the findings from the literature review, underscores the complexity of economic systems.  Future research could benefit from exploring alternative modeling approaches, including the inclusion of interaction terms or nonlinear specifications, to better capture the multifaceted nature of economic freedom and its impact on economic growth.
+
+\newpage
+
+## References
+
